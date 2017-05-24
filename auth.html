@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Loli Craft - 登录</title>
+	<link type="text/css" rel="stylesheet" href="static/css/materialize.css" media="screen,projection"/>
+	<link href="https://fonts.lug.ustc.edu.cn/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="static/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="static/js/materialize.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+	<div class="container">
+		<h3 class="light center">登录 - Loli Craft</h3>
+		<p class="light center"><a href="register.html">还没有账号?</a></p>
+		<div class="card-panel">
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">account_circle</i>
+					<input id="username" type="text">
+					<label for="username">用户名</label>
+				</div>
+				<div class="input-field col s12">
+					<i class="material-icons prefix">lock</i>
+					<input id="password" type="password">
+					<label for="password">密码</label>
+				</div>
+				<div class="input-field col s12 m8">
+					<i class="material-icons prefix">perm_media</i>
+					<input maxlength="5" id="checkcode" type="text">
+					<label for="checkcode">验证码(点击更换)</label>
+				</div>
+				<div class="input_prefix col s12 m4">
+					<img id="code" src="api/index.php/action/captcha" onclick="this.src=src">
+				</div>
+				<div class="input_prefix col s12">
+					<a id="do_login" class="waves-effect waves-light btn">登录</a>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	$('#code').on('click',function(){
+			$(this).src = 'api/index.php/action/captcha';
+		Materialize.toast("验证码已更新");
+	});
+	$('#do_login').on('click',function(){
+		$.ajax({
+			cache: false,
+			type: "POST",
+			url: 'api/index.php/action/login',
+			data: {username:$('#username').val(),password:$('#password').val(),checkcode:$('#checkcode').val()},
+			async: false,
+			dataType: "json",
+			success: function(data){
+				if (data['status']==200) {
+					Materialize.toast(data['message']);
+					setTimeout("window.location.href='center.html'",2000);
+				}else{
+					Materialize.toast("发生错误:"+data['message']);
+					$('#code')[0].src = 'api/index.php/action/captcha';
+				}
+			}
+		});
+	})
+</script>
+</body>
+</html>

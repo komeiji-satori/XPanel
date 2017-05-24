@@ -1,0 +1,46 @@
+<meta charset="utf-8">
+<title>Loli Craft - 登录</title>
+<link rel="stylesheet" type="text/css" href="static/css/login.css">
+<script src="static/js/jquery-1.9.1.min.js"></script>
+<img src="static/img/login.png" border="0" usemap="#planetmap"/>
+<map name="planetmap" id="planetmap">
+	<ul id="login_from">
+		<li>
+			<input type="text" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" id="user-name" class="form-control" />
+		</li>
+		<li>
+			<input type="password" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" id="pass-word" class="form-control" />
+		</li>
+		<li>
+			<input type="text" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" id="checkcode" style="width:200px" class="form-control" />
+			<img id="code" onclick="this.src=src" src="api/index.php/action/captcha" class="form-control" style="width:150px;height: 50px">
+		</li>
+		<li>
+			<a href="#"><img id="btn" src="static/img/button.png" class="form-control"></a>
+		</li>
+		<li>
+			<a id="to_reg" href="register.html" class="form-control">还没有帐号?</a>
+		</li>
+	</ul>
+</map>
+<script type="text/javascript">
+	$('#btn').on('click',function(){
+		$.ajax({
+			cache: false,
+			type: "POST",
+			url: 'api/index.php/action/login',
+			data: {username:$('#user-name').val(),password:$('#pass-word').val(),checkcode:$('#checkcode').val()},
+			async: false,
+			dataType: "json",
+			success: function(data){
+				if (data['status']==200) {
+					alert(data['message']);
+					setTimeout("window.location.href='center.html'",1500);
+				}else{
+					alert(data['message']);
+					$('#code')[0].src = 'api/index.php/action/captcha';
+				}
+			}
+		});
+	})
+</script>

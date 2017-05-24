@@ -1,0 +1,51 @@
+	*{
+		padding:0;
+		margin:0;
+	}
+	#login_from{
+		position: fixed;
+		top:0;
+		left:0;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	#user-name{
+		top: 140px;
+	}
+	#to_reg {
+		margin-left: -100px;
+		font-size:16px;
+		height: 30px;
+		width:100px;
+		top:100px;
+	}
+	#pass-word{
+		top: 265px;
+	}
+	#checkcode{
+		top:380px;
+	}
+	#btn {
+		top:480px;
+	}
+	#code {
+		top:480px;
+		left:20px;
+		margin-left: 350px;
+		margin-top: -85px;
+	}
+	.form-control{
+		left: 140px;
+		position: fixed;
+		width: 390px;
+		font-size:25px;
+		height: 80px;
+		background-color: rgba(0, 0, 0, 0)!important;
+		border: none;
+		outline: none;
+	}
+	area {
+		display: inline;
+		cursor: pointer;
+	}
